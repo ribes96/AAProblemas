@@ -4,7 +4,11 @@
 
 %opening
 \title{Problem 5}
-\author{}
+\author{
+Víctor Alcázar \\
+Kosmas Palios \\
+Albert Ribes
+}
 
 \begin{document}
 
@@ -30,5 +34,11 @@ Show that if EXPERIMENTAL CUISINE is solvable in polinomial time, then is so 3SA
 
 
 \section{Answer}
+First of all, we will prove this problem is NP-complete. To do so we have to prove it is NP and that it is NP-Hard
+\subsection{Proving is NP}
+Have to do
+
+\subsection{Proving is NP-Hard}
+Have to reduce from a known NP-complete problem to this one, and have to prove that iff x is an answer the NP-complete problem, it is also and answer to our problem.
 
 \end{document}

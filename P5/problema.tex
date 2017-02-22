@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 
-%opening
+% Header
 \title{Problem 5}
 \author{
 Víctor Alcázar \\
@@ -11,17 +11,9 @@ Albert Ribes
 }
 
 \begin{document}
-
 \maketitle
-
-% \begin{abstract}
-
-% \end{abstract}
-
-% \section{}
 \begin{abstract}
-
-5. We are feeling experimental and want to create a new dish. There are various ingredients we can choose from and we'd like to use as many of them as possible, but some ingredients don't go well with others. If there are $n$ possible ingredients (numbered 1 to $n$, we write down the $n\times n$ matrix D giving the \textit{discord} between any pair of ingredients. This \textit{discord} is a real number between $0.0$ and $1.0$, where $0.0$ means ``they go together perfectly'' and $1.0$ means ``they don't go together''. For example, if $D[2,3] = 0.1$ and $D[1,5] = 1.0$, then ingredients 2 and 3 go together pretty well whereas 1  and 5 clash badly.
+We are feeling experimental and want to create a new dish. There are various ingredients we can choose from and we'd like to use as many of them as possible, but some ingredients don't go well with others. If there are $n$ possible ingredients (numbered 1 to $n$, we write down the $n\times n$ matrix D giving the \textit{discord} between any pair of ingredients. This \textit{discord} is a real number between $0.0$ and $1.0$, where $0.0$ means ``they go together perfectly'' and $1.0$ means ``they don't go together''. For example, if $D[2,3] = 0.1$ and $D[1,5] = 1.0$, then ingredients 2 and 3 go together pretty well whereas 1  and 5 clash badly.
 
 Notice that D is necessarely symmetric and that the diagonal entries are always $0.0$. Any set of ingredients always incurs a penalty which is the sum of all discors values between pairs of ingredients. For instance the set of ingredients $\{1,2,3\}$ incurs a penalty of $D[1,2] + D[1,3] + D[2,3]$. We want the penalty to be small.
 
@@ -29,19 +21,24 @@ Notice that D is necessarely symmetric and that the diagonal entries are always 
 Given n ingredients, and the discord $n \times n$ matrix D and some number $p$, compute the maximum number of ingredients we can choose with penaly $\leq p$
 \\
 \\
-Show that if EXPERIMENTAL CUISINE is solvable in polinomial time, then is so 3SAT
+Show that if \textsc{Experimental cuisine} is solvable in polinomial time, then is so 3SAT
 \end{abstract}
 
 
 \section{Answer}
-First of all, we will prove this problem is NP-complete. To do so we have to prove it is NP and that it is NP-Hard
-\subsection{Proving is NP}
-Have to do
+First of all, we will prove that the program is NP-complete. To do so we need to prove that
+\begin{enumerate}
+  \item It belongs to NP
+  \item It is NP hard
+\end{enumerate}
 
-\subsection{Proving is NP-Hard}
-Have to reduce from a known NP-complete problem to this one, and have to prove that iff x is an answer the NP-complete problem, it is also and answer to our problem.
+\subsection{Proving it is NP}
+% TODO
+
+\subsection{Proving it is NP hard}
+We have to reduce from a known NP-complete problem to this one, and have to prove that iff x is an answer the NP-complete problem, it is also and answer to our problem.
 
 \subsection{Algorithm to compute Experimental Cuisine}
-And so on
+% TODO
 
 \end{document}

@@ -5,29 +5,40 @@ We are feeling experimental and want to create a new dish. There are various ing
 Notice that D is necessarely symmetric and that the diagonal entries are always $0.0$. Any set of ingredients always incurs a penalty which is the sum of all discors values between pairs of ingredients. For instance the set of ingredients $\{1,2,3\}$ incurs a penalty of $D[1,2] + D[1,3] + D[2,3]$. We want the penalty to be small.
 
 \subsection*{Exercise}
-Given n ingredients, and the discord $n \times n$ matrix D and some number $p$, compute the maximum number of ingredients we can choose with penaly $\leq p$
+Given $n$ ingredients, and the discord $n \times n$ matrix $D$ and some number $p$, compute the maximum number of ingredients we can choose with penaly $\leq p$
 
 Show that if \exc{} is solvable in polinomial time, then is so 3SAT.
 
 \section*{Answer}
-A way to prove that if \exc{} is solvable in polinomial time, then so is \tsat{} is by reducing in polynomial time \tsat{} to \exc{}. If a reduction was found, we'd have:
+A way to prove that if \exc{} is solvable in polinomial time, then so is \tsat{} is by reducing in polynomial time \tsat{} to \exc{}.
+
+Assuming a reduction is found, it means that \exc{} is harder or as hard to solve as \tsat{}. Once this has been established, there is no doubt that if we assume that \exc{} is solvable in polynomial time, we have that \tsat{} must be solvable in polynomial time, because it is easier or as easy to solve as \exc{}, based on our previous assumptions.
+
+
+The problem is that \tsat{} is a search problem while \exc{} is an \textbf{optimisation} problem (Given a set of restrictions, find the better solution to the problem). This makes it very difficult if not impossible to find a reduction directly from one another. Fortunately, we know that a search problem reduces in polynomial time to its optimisation version and vice versa\cite[p. 250]{algorithms}, so we can easily re-formulate \exc{} to be a search problem:
+
+\paragraph{\exc{}}
+Given $n$ ingredients, a number $k \leq n$, the discord $n \times n$ matrix $D$ and some number $p$, compute if it is possible to choose $k$ ingredients which the total discord between them is $\leq p$.
 \\ \\
-\tsat{} $\karp{}$ \exc{}
+From now on, when we refer to the problem, we'll be referring to its search version.
+
+We have solved our first problem. Unfortunately, the reduction still is yet to be found, and there is no clear path that leads us to it despite having changed the very nature of our problem. Despite our best efforts, \tsat{} and \exc{} are still very different problems one to another. \tsat{} is about boolean formula satisfactibility and \exc{} is much more similar to a \textsc{Longest Path} problem, for example. Because of this, we'll have to use another problem to help us with the reduction: \is{}.
+
+\paragraph{\is{}}
+A subset of nodes $S \subset V$ is an \textit{independent set} of graph $G = (V,E)$ if there are no edges between them. Given a graph $G = (V,E)$ and a number $s \leq |V|$, say if there is a subset $S$ size $s$ that is an \textit{independent set} of $G$.
 \\ \\
-Which means that \exc{} is harder or as hard to solve as \tsat{}. Once we've proven this to be true, there is no doubt that if we assume that \exc{} is solvable in polynomial time, given that \tsat{} $\karp{}$ \exc{}, we have that \tsat{} must be solvable in polynomial time, because it is easier or as easy to solve as \exc{}, given that we find a reduction.
+\is{} is very similar (or at least more similar than \tsat{}) to \exc{}. If we interpret \exc{} as a graph problem, with $D$ as its adjacency matrix, the simiarities begin to arise. And what is more convenient: \tsat{} can be reduced to \is{}, and it has aleady been done\cite[p. 262]{algorithms}!
 
-We will proceed with this reduction as follows:
-\begin{enumerate}
-  \item By reducing \tsat{} to \is{}
-  \item By reducing \is{} to \exc
-\end{enumerate}
-The reduction from \tsat{} to \is{} is proven here\cite{algorithms-is-proof}.
+Now it is only left for us to reduce \is{} to \exc{}.
 
-Now we need to reduce \is{} to \exc{}.
+\subsection*{\is{} $\longrightarrow$ \exc{}}
 
-Given an instance of \is{}, $G$, where $G$ is a graph, construct the following:
+\paragraph{Building the reduction}
+For a reduction to be effective, we have to create a function $F$ that modifies an instance $I$ of \is{} to a valid one of \exc{}. Additionally, we have to create a function $h$ that takes in a valid solution $S$ to \exc{} and transforms it to be a valid solution of \is{}. Finally, if $F(I)$ is not a solution to \exc{}, then $I$ should not be a solution of \is{}.
 
-Set $D$ to be an incidence matrix of $G$, where $a_{ij}=0$ if the graph's vertices do not share a common edge, and $a_{ij}=1$ if they are, and assign to the maximum discordance $d$ the value of 0.
+Let us begin with the reduction. Given an instance of \is{}, $G$, where $G$ is a graph, construct the following:
+
+Set $D$ to be an incidence matrix of $G$, where $a_{ij}=0$ if the graph's vertices do not share a common edge, and $a_{ij}=1$ if they are, and assign to the maximum discordance $d$ the value of 0. We should then set $k$ to $s$.
 
 If we feed this values to an algoritm that solves \exc{}, the result that it yields is a subset of verticies $V$ such that $V$ is an \is{} of $G$.
 

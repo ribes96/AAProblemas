@@ -63,7 +63,9 @@ Because of the way it's build, we'd have that there'd be not enough ingredients 
   \item If $F(I)$ is not a solution to \exc{}, then $I$ should not be a solution to \is{}.
 \end{enumerate}
 
-This can be seen by again looking at how the reduction is made. By contradiction, if we assume $F(I)$ to be a solution of \exc{}, we'd have that there are $k$ ingredients that can be chosen with a maximum discordance of 0. Then, this means that at least $k$ nodes in the graph of $I$ should not be connected between them. If the problem should output true if an independent set in $G$ of size $s = k$ exists, we'd have that $I$ has to be a solution of \is{}, because of the definition of an independent set of nodes. We have thus reached a contradiction, and the implication is proven.
+This can be seen by again looking at how the reduction is made. By contradiction, let us assume $I$ to be a solution of \is{}. Then, we would have $s$ disconected nodes in the graph. This of course also holds for the graph of the \exc{} problem. Therefore, every one of the corresponding ingredients has discord 0 with every one of the rest. Thus, these $s$ ingredients make a set of total discord 0, and provide a solution \exc{}. But this contradicts the hypothesis of there not being a solution.  
+\\
+Therefore, $I$ should not be a solution to \is{}.
 
 The reduction has been proven to be correct.
 

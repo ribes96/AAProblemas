@@ -9,7 +9,7 @@ This is easy. We only have to give an exponential algorithm that solves such a
 game. 
 
 The algorithm is as follows. We construct a tree of possible states
-that can be produced from the initial states by moving pieces around. 
+that can be produced from the initial state by moving pieces around. 
 For every configuration in the board, there are (at most) two states/nodes in the
 tree. One for the case that it is white's turn to play, and one for the 
 case that it is black's turn. 
@@ -17,9 +17,9 @@ case that it is black's turn.
 Let us consider that in any game there are c kinds of pieces. For example, in chess we have $c=6$ (king,queen,rook,bishop,knight,pawn). That means that in 
 every square of the board can have none or one of 2*c pieces (every piece can 
 be either black or white).  Therefore, the number of possible 
-configurations on a $n*n$ board is $(2*c+1)^{n^2}$. 
+configurations on a $n*n$ board is $(2c+1)^{n^2}$. 
 
-Clearly, this is a directed tree with $(2*c+1)^{n^2}$ nodes. Also, there are back edges, although these will not trouble us a lot, as shown later. While 
+Clearly, this is a directed tree with $2(2c+1)^{n^2}$ nodes. Also, there are back edges, although these will not trouble us a lot, as shown later. While 
 creating this tree, we find some states in which either black or white 
 wins. These are the leaves of the tree. 
 

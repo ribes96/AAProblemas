@@ -1,7 +1,7 @@
 \section*{Problem statement}
 \subsection*{The problem}
 
-We have to prove that board games like chess or go in $nxn$ boards are in EXP.
+We have to prove that board games like chess or go in $n \times n$ boards are in EXP.
 
 \subsection*{The solution}
 
@@ -17,7 +17,7 @@ case that it is black's turn.
 Let us consider that in any game there are c kinds of pieces. For example, in chess we have $c=6$ (king,queen,rook,bishop,knight,pawn). That means that in 
 every square of the board can have none or one of 2*c pieces (every piece can 
 be either black or white).  Therefore, the number of possible 
-configurations on a $n*n$ board is $(2c+1)^{n^2}$. 
+configurations on a $n \times n$ board is $(2c+1)^{n^2}$. 
 
 Clearly, this is a directed tree with $2(2c+1)^{n^2}$ nodes. Also, there are back edges, although these will not trouble us a lot, as shown later. While 
 creating this tree, we find some states in which either black or white 

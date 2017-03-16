@@ -19,9 +19,10 @@ game.
 We construct a tree $T$ of possible states of the game ,produced from the initial state by 
 moving pieces around. A state is combination of a configuration of pieces on the board
  and a variable telling whose turn it is to play. For every configuration of pieces, there are
- (at most) two states/nodes in the tree. One for the case it is white's turn to play, and one 
-for the case that it is black's turn. This tree can be used to discover if a certain player 
-has a winning strategy or not.
+ (at most) two states/nodes in the tree. One for the case it is White's turn to play, and one 
+for the case that it is Black's turn. We call the nodes of the first (second) type white (black) nodes.
+This tree can be used to discover if a certain player 
+has a winning strategy or not. 
 
 \subsubsection*{Details}
 
@@ -35,7 +36,7 @@ be either black or white).  Therefore, the number of possible
 configurations on a $n \times n$ board is $(2c+1)^{n^2}$. 
 
 
-From the above observation, we conclude that our directed tree has $2(2c+1)^{n^2}$ nodes. Also, there are various edges,
+From the above observation, we conclude that our directed tree has at most $2(2c+1)^{n^2}$ nodes. Also, there are various edges,
 that take us back to nodes of higher levels, although these will not trouble us a lot, as shown later. While 
 creating this tree, we find some states in which either black or white 
 wins. These are the leaves of the tree. 
@@ -53,127 +54,111 @@ created states to a queue, and then we repeat the process for each one of the st
 duplicate states. In this manner, we shall create no more than $2(2c+1)^{n^2}$ nodes, and since for each node we 
 try p(n) moves, the creation of tree is complete after $O((2c+1)^{n^2}p(n))$ steps.
 
+For convience we will colour the nodes according to whose turn it is: black nodes for Black's turn to play, and white nodes for White's turn to play. Note that
+the nodes where White has won are black nodes without out-edges.
+
 \subsubsection*{Tree traversal}
-Now we have this tree. What do we do with it? Consider how the condition
+Now we have this graph. What do we do with it? Consider how the condition
 "Player I has a winning strategy" is check-able in this tree.  
 
 The condition "Player white has a winning strategy from the initial state 
 <b,true>" is equivalent to "$\exists$ a first move for white s.t. $\forall$ second moves 
 of black, $\exists$ a third move for white s.t. $\forall$ fourth moves of black
-$\ldots \exists$ a k-th move for black that wins the game. "
+$\ldots \exists$ a k-th move that wins the game.
 
 This can be verified in our tree, given exponential time. We will describe how in the algorithm given below.
 Note that the back-edges do not actually affect the solution, as they lead us to previous nodes.
 \newline
 
-In our algorithm, we define the $dfs\_chess()$ function. This takes as input a state (remember that 
+In our algorithm, we define the $win()$ function. This takes as input a state (remember that 
 a state is a board configuration and a boolean telling us whose turn it is) and returns true if
 starting from this state, player WHITE has a possibility of winning regardless of the moves of player black. 
 It can take as input either a state in which white plays, or a state in which black plays. 
 
 Depending on the value of $white\_plays$ our function's behaviour changes:
 \begin{itemize}
-\item if state.white\_plays is true, the function checks if \emph{one} of the child-states of this state 
-(in all of which it is black's turn to play) can lead to white's victory, regardless of the black's move.
-Equivalently, if $\exists child\_state :  fs\_chess(child\_state) = true $.
-
-\item if state.white\_plays is false, the function checks if \emph{all} of the child-states of this state
-(in all of which it is white's turn to play) can lead to white's victory. Equivalently, if $\forall child\_state: dfs\_chess(child\_state) = true $
+\item if state.white\_plays is true \begin{itemize} 
+\item has White lost? Then the function return false.
+\item Otherwise, the function checks if \emph{one} of the child-states of this state 
+(in all of which it is black's turn to play) can lead to white's victory, regardless of the black's moves.
+Equivalently, if $\exists child\_state : win(child\_state) = true $.
 \end{itemize}
 
-There are some importants cases we must cater for:
-\begin{itemize}
-\item While calculating $dfs\_chess(state)$ for some State state, as we fall into the rabbit-hole of recursion 
-we might actually reach a point that we need the value $dfs\_chess(state)$! This means that in the sequence of moves we are
-simulating (the very moves that produce the sequence of states currently stored at the stack) there is a move that can
-force the game to restart from some moves earlier. This move however does not change the outcome of the game, given that
-White is an omniscient player. The reason for this is that, no matter how many times we go back in time, if we go back to a
-winning state, by definition we can do nothing to change it. So, we might as well prohibit these "trips in time", and ignore
-the moves that move us back to a state already in the recursion stack.
-\item It is also possible that we come across to a state, let's call it $state\_old$ that we already checked at some point in the past if it is a winning state or not. In this case, we will be able to evaluate the value $dfs\_chess(state\_old)$ 
-instantly, becuase among other things, the $dfs\_chess()$ function stores its result to a huge state-indexed array before
-returning it.
+\item if state.white\_plays is false: \begin{itemize}
+\item Has Black lost? Then the function returns true.
+\item Otherwise the function checks if \emph{all} of the child-states of this state
+(in all of which it is white's turn to play) can lead to white's victory. Equivalently, if $\forall child\_state: win(child\_state) = true $
+\end{itemize}
 \end{itemize}
 
-The algorithm in pseudo-C is as follows. 
 
-\clearpage
-\lstset{language=C 
-	}
-\begin{lstlisting}
-function dfs_chess(Node state ) {
-	if (!visited(state)) {
-	//this is the first time we see this node.
+It is pretty straightforward to prove that if the win() function returns true,
+that means that there is a winning strategy for White.
 
-		set visited(state)=true;
+Now, for the algorithm:
 
-		if (u.whitePlays) then { 
-			result		= dfs_chess(out-neighbour_1) OR 
-					  dfs_chess(out-neighbour_2) OR ...
-					  dfs_chess(out-neighbour_k) 
-			set evaluated(state) = true;
-			set stored_result(state)=result;
-			return result;
-		}else{ 
-			result          = dfs_chess(out-neighbour_1) AND
-					  dfs_chess(out-neighbour_2) AND...
-					  dfs_chess(out-neighbour_k)
-			set evaluated(state) = true;
-			set stored_result(state)=result;
-			return result;
+\begin{enumerate}
+\item
+Beginning with the graph described above, we check if there are any black nodes with out-degree zero. We know the value of win() for these nodes,
+as the are positions of White's victory. We label them true. 
+\item Then using
+acquired information, we check the nodes that are neighbours of the newly labeled nodes. All of them are white nodes, because only white moves can end the
+game. So, we label all of them as winning, as they all have at least one 
+out-edge that goes to an endgame.
+\item  Now the nodes labeled "winning" are more, can we determine if one of their neighbours is a winning node? This time, our neighbours are all black, so the condition is that \emph{all} of their out-edges point to a winning node. Suppose
+there is one that fulfils this condition. We label it winning, and we continue,
+keeping the rest of the neighbours in a list of "yet unspecified neighbours".
+\item We continue like this. With each addition to the "winning" set, we check the neighbours of the
+newly labeled nodes, as well as the list of "yet unspecified neighbours". 
+\item We stop either when  we reach to a point we cannot 
+designate any more nodes as winning, or when we have labeled the initial node
+as winning. 
+\item In the first case, we can safely say that White has no winning strategy.
+\item In the second case we can safely say that she has a winning strategy.
+\end{enumerate}
 
-		}
-	}else if (!evualuated(state)) { 
-	//here we are closing a directed cycle
-	//we don't want cycle to affect the result..
-					
-		if (u.whitePlays) then { 
-			//this means that we are coming from a 
-			//black move. Because we don't want to 
-			//affect the result of the function just 
-			//before this one we return true, because
-			//A1 AND A2 AND ... AND AK AND TRUE = 
-			//A1 AND A2 AND ... AND AK.
-			return true;
-		}else {
-			//now we know that the above level call is 
-			//from a state where White plays, so the 
-			//condition we want to avoid affecting 
-			//has only OR's. Therefore, we return false
-			return false; 
-		}		
-	} else { 
-	//We know if this node is a winning node or not!	
-		return stored_result(state);
+Why are the last two prepositions true? There second one is immediately derived
+from the definition of the win() property. 
+\subsubsection*{If the algorithm stops before reaching initial state there
+is no winning strategy}
 
-	}
-\end{lstlisting}
+Consider the point where the algorithm stops. Then, we can be sure that that the 
+set of already labeled nodes do not have in-edges from white unlabeled nodes, 
+because otherwise they would be eligible for labelling by our algorithm. 
+Then, we can say that two cases exist:
+\begin{enumerate}
+\item Neither black nodes exist that have connection with our true-subgraph:
+In this case, we can deduce that the graph has no directed path from the 
+unlabeled nodes subgraph to the labeled ones. That means that there are no 
+sequence of moves that can lead White to victory whatsoever (remember, all
+the winning nodes are in the labeled territory).
+\item There exist black nodes that have out-edges to labeled nodes, but every
+one of them has an out-edge pointing towards another unlabeled node. In this case we realize that every sequence of moves leading to White's victory must
+pass by on of these black nodes. But every time the game is in one of these
+nodes, Black can send it to a node that does neighbour with the nodes in the
+labeled "territory", thus creating a loop, possibly infinite. This way, Black 
+can stall the game forever, making White's victory impossible. 
+\end{enumerate}
 
- 
-This concludes the proof.
+In both cases, there doesn't exist a fail-proof winning strategy for White.
+
+
 
 \section*{Exercise 16b}
 
-Given that the game ends after p(n) moves, we must show that the above problem
+Given that the game ends after $k=p(n)$ moves, we must show that the above problem
 is in PSPACE.
 
 \section*{The solution}
 
-This solution is based on a crucial observation. 
+The algorithm is similar to the above, but with 2 modifications.
 
-In the previous problem, we did not really have to create the whole
-graph and then start traversing it. We could have avoided using so much memory,
-as we can build the tree as we go, and only keep the current branch we are
-traversing. 
-
-How much memory is used in this case? Roughly, it would be \[ memory\_consumption =O(longest\_branch\_length * max\_number\_of\_neighbours) \] \[=O(longest\_ branch\_length*p(n))\] 
-
-To prove this, we will describe the improved version of the algorithm.
-
-\subsubsection*{Space efficient algorithm}
-
-\emph{Add algorithm here...} \\
-
-In conclusion, in the special case of having polynomially limited duration q(n) of the game, we have polynomial space 
-complexity.
+\begin{itemize}
+\item We create the graph as we go: Supposing that there are polynomially many
+game ending states, we create their neighbouring states, and then we create
+more as we go on.
+\item For each state, we add a distance counter from the nearest solution. This counter in white (black) node will be equal to the mininum (maximum) distance of all its children, plus one. The algorithm does not create nodes with counter larger than k-1.
+\end{itemize}
+If we stop before reaching a solution, that means that there is no winning 
+strategy for White in less than k-rounds.
 

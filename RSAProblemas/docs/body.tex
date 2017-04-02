@@ -23,6 +23,13 @@ Solution.
 \section*{Exercise 4}
 SOLUTION.
 \section*{Exercise 5}
-Solution.
+
+In the given cryptosystem, to decrypt a ciphertext we must use the private key d, in the following way $m = c^d mod p$. The problem here is that the private key can be easily computed. We know that the relation between e and d is $ed = 1 mod \phi(p)$.
+But now $\phi(p)=p-1$, because p is prime! 
+
+So all we have to do is compute the multiplicative inverse of e modulo p-1. This can be easily done using the Extented Euclidean Algorithm, which takes $O(log(e)2)$ time. Then it is only a matter of exponentiation of c to the power of d modulo p. This in itself takes log(d) steps if done with repeated squaring. 
+
+In total we have $O(log(e)2+log(d))$ time.
+
 
 

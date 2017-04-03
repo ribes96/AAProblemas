@@ -75,36 +75,15 @@ Com que $6^2\ \textrm{mod } 15  = 6$, el resultat és:
  \end{enumerate}
 \item \textbf{2EXP modular. }Doneu un algorisme de temps polinòmic que amb entrada els enters $a,b,c$ i un nombre primer $p$ computi $a^{b^c} \textrm{mod } p$
 
-Ens podem adonar del següent: \\
-$ a^{b^c} \textrm{ mod } m = a^{b^{c-1} \times b} \textrm{ mod } m = (a^b)^{b^{c-1}} \textrm{ mod } m$ \\
-Per tant podem aplicar el següent algorisme \texttt{doubleExp}:
+We first compute $x=b^c mod \phi(p)$ \\
+Then we compute  $a^x mod p$.
 
-\begin{algorithmic}[1]
- \STATE int simpleExp(a,b,mod)
- \IF { b == 0 } 
-  \RETURN 1
- \ELSIF {b \% 2 == 0}
-  \RETURN simpleExp( (a * a) \% mod,b/2,mod)
- \ELSE
-  \RETURN a*simpleExp( (a * a)\% mod, b/2, mod) \% mod
- \ENDIF
- 
-\end{algorithmic}
+Why is this correct? Simply because for every p,a, as Euler tells us that$a^{\phi(p)}=1 mod p$, we have the following $ a^k = a^{k+\phi(p)*l} mod p $.
 
-I llavors es por fer servir aquest:
+Time complexity is polynomial, as modular exponention using repeated squaring is polynomial.
 
-\begin{algorithmic}[1]
- \STATE double doubleExp(a, b, c, mod)
- \IF { c == 1 }
-  \RETURN simpleExp(a, b, mod)
- \ELSE
-  \RETURN doubleExp(simpleExp(a, b, mod), b, c-1, mod)
- \ENDIF
-\end{algorithmic}
+\item \textbf{Factorial Modular. }Donats dos enters $x$ i $N$, calcula $x! \textrm{ mod }N$.
 
-
-
- \item \textbf{Factorial Modular. }Donats dos enters $x$ i $N$, calcula $x! \textrm{ mod }N$.
  \begin{enumerate}
   \item Demostreu que un enter $y$ és primer si i només si per tot enter $x < y$ es compleix que $gdc(x!,y) = 1$.
   
@@ -184,3 +163,4 @@ In total we have $O(log(e)2+log(d))$ time.
 \end{enumerate}
 
 \end{document}
+

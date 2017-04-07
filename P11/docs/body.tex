@@ -1,0 +1,35 @@
+\section*{11. Sales de Joc}
+
+
+La societat d'Amics dels Videojocs (SAV) té una col·lecció de $m$  locals a la ciutat de Barcelona i un total de $n$  socis. Volen determinar en quins locals els hi convé obrir una sala de joc juntament amb una assignació de ocis a les sales de joc.
+
+La SAV per una perta ha fet una estimació del cost d'adequar un local com a sala de joc i així, per cada local $i$ té una estimació del cost $l_i$. Per una altre part, la SAV vol tenir en compte el cost que té per als socis desplaçar-se fins el local assignat. Així disposa dels valors $c(i,j)$ que indiquen la distancia que habitualment el soci $i$ ha de recorrer per arribar al local $j$.
+
+L'objectiu de la SAV és trobar una solució en la que es minimitzi la suma dels costos d'adequació dels lcoal seleccionats més al suma de les distancies dels desplaçaments dels socis a les sales assignades.
+
+\paragraph{Q1}
+Doneu una formalitzacó com problema de programació entera d'aquest problema. Feu servir uan variable $x_j$ per la selecció del local $j$ i una variable $y_{ij}$ per la possible assignació del soci $i$ al local $j$.
+
+Considereu el problema de programació lineal obtingut desprès de relaxar les condicions d'integritat. Sigui $x^*$, $y^*$ una solució òptima del programa relaxat.
+
+Considereu els següent procès:
+\begin{enumerate}[label=(\alph*)]{
+\item Per cada soci $i$, sigui $\tilde{c}_i \Sigma_j c(i,j)y^*_{ij} $ la distancia mitjana del soci $i$ a les ssales assignades en $y^*$.
+\item Per cada soci $i$, sigui $S_i = \{j | c(i,j) \leq 2\tilde{c}_i\}$.
+
+}
+\end{enumerate}
+
+
+%\paragraph{Q1 }
+%Doneu una formalització com problema de programació entera d’aquest problema. Feu servir una variable xj perla seleccion del local j y una variable yij per la possible assignació del soci i al local j.
+
+
+%Considereu el problema de programació lineal obtingut desprès de relaxar les condicions d’integritat. Sigui x∗, y∗ una solució òptima del programa relaxat.
+
+%Considereu el següent procès:
+
+%\begin{enumerate}{
+%%%\item Per cada soci $i$, sigui 
+
+%}

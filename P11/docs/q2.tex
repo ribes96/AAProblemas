@@ -1,0 +1,37 @@
+\textbf{Solución}
+En los casos en los que $j \notin S_i$, $\tilde{y}_{ij} = 0$, y eso siempre es menor o igual.
+Para el resto de casos, podemos sustiuir $\tilde{y}_{ij}$ por el valor indicado y la demostración se transforma de la siguiente manera:
+\begin{equation}
+ \frac{y^*_{ij}}{\Sigma_{j \in S_i} y^*_{ij}} \leq 2y^*_{ij}
+\end{equation}
+
+\begin{equation}
+ \frac{y^*_{ij}}{2y^*_{ij}} \leq \Sigma_{j \in S_i} y^*_{ij}
+\end{equation}
+
+\begin{equation}
+ 0.5 \leq \Sigma_{j \in S_i} y^*_{ij}
+\end{equation}
+
+La ultima relación es cierta. Para probarlo, empazamos el siguente argumento. La optimalidad de la solución nos da el siguente: 
+
+\begin{equation}
+ \Sigma_{j \notin S_i} y^*_{ij} \leq \Sigma_{j \in S_i} y^*_{ij}
+\end{equation}
+\\
+Pero también tenemos que $\Sigma_{j \in M} y^*_{ij} = \alpha \geq 1 $ . Entonces:
+\\
+\begin{equation}
+ \alpha - \Sigma_{j \in S_i} y^*_{ij} \leq \Sigma_{j \in S_i} y^*_{ij}
+\end{equation}
+
+\begin{equation}
+ \alpha  \leq 2 * (\Sigma_{j \in S_i} y^*_{ij})
+\end{equation}
+
+\begin{equation}
+ \frac{1}{2} \leq \frac{\alpha}{2} \leq \Sigma_{j \in S_i} y^*_{ij}
+\end{equation}
+
+
+\textbf{fin de solución}

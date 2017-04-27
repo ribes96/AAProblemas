@@ -1,0 +1,52 @@
+\textbf{La respuesta a Q3 empieza aquí}
+
+To say this approximation is feasible is equilvalent to say that
+
+
+\begin{equation}\label{eq:pythagoras}
+
+  \tilde{x}_{j} \lequal 2x_{i} or \tilde{x}_{j} = 1
+  
+\end{equation}
+  
+  2. y~_ij <= 2y*_ij (By Q2)
+
+
+Applying transformations to 
+  1-yij + xj >= 1
+
+We have:
+  -y_ij + x_j >= 0
+  x_j >= y_ij
+
+That means that the formula implies that for a feasible solution,
+for all ij this holds true. Specifically, for the optimal solution:
+  x*_j >= y*_ij
+
+Also:
+  2x*_j >= 2y*_ij
+  
+So:
+  y~_ij <= 2y*_ij <= 2x*_j <= x~_j
+
+And, by transitivity:
+  y~_ij <= x~_j
+
+The other proof is direct. We only have to observe that
+  y~_ij <= 2y*_ij
+
+Then, for each ij holds true that
+  c_ij * y~_ij <= c_ij * 2y*_ij
+
+The other restriction
+  yi1 + yi2 + ... + yim >= 1;
+
+Can be easily proven to be true.
+Let us see that in fact this restriction
+  y~_ij = y*_ij/summ(j in S_i) of y*_ij
+
+Is dividing an element of a set between the sum of all the elements of a set
+and it is doing it so for every element in the set. This makes it so the sum
+is always going to give 1. This makes the previous restriction true.
+
+\textbf{La respuesta a Q3 acaba aquí}

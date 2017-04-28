@@ -1,52 +1,84 @@
+\paragraph{}
+
 \textbf{La respuesta a Q3 empieza aquí}
+\\ \\
+\textbf{Proving that the approximation is feasible}
 
-To say this approximation is feasible is equilvalent to say that
+To say this approximation is feasible is equilvalent to say that all
+the previous restricions stated in Q1 are still true.
 
+Let us start with the proof.
 
-\begin{equation}\label{eq:pythagoras}
+The restrictions that we have to prove still true are the ones in Q2: 
+the inequations \ref{r1}, \ref{r2} and \ref{r3}.
 
-  \tilde{x}_{j} \lequal 2x_{i} or \tilde{x}_{j} = 1
-  
-\end{equation}
-  
-  2. y~_ij <= 2y*_ij (By Q2)
+\paragraph{}
 
+Let us prove that \ref{r1} is true for $\tilde{x}$ $\tilde{y}$.
 
-Applying transformations to 
-  1-yij + xj >= 1
+This can be easily proven to be true. 
+Let us see that in fact this approximation
 
-We have:
-  -y_ij + x_j >= 0
-  x_j >= y_ij
-
-That means that the formula implies that for a feasible solution,
-for all ij this holds true. Specifically, for the optimal solution:
-  x*_j >= y*_ij
-
-Also:
-  2x*_j >= 2y*_ij
-  
-So:
-  y~_ij <= 2y*_ij <= 2x*_j <= x~_j
-
-And, by transitivity:
-  y~_ij <= x~_j
-
-The other proof is direct. We only have to observe that
-  y~_ij <= 2y*_ij
-
-Then, for each ij holds true that
-  c_ij * y~_ij <= c_ij * 2y*_ij
-
-The other restriction
-  yi1 + yi2 + ... + yim >= 1;
-
-Can be easily proven to be true.
-Let us see that in fact this restriction
-  y~_ij = y*_ij/summ(j in S_i) of y*_ij
+  \[ \tilde{y}_{ij} = y^*_{ij}/\Sigma_{j \in S_{i}} y^*_{ij} \]
 
 Is dividing an element of a set between the sum of all the elements of a set
 and it is doing it so for every element in the set. This makes it so the sum
 is always going to give 1. This makes the previous restriction true.
 
+\paragraph{}
+
+Let us now prove \ref{r2} true.
+
+Let us be reminded that by the approximation done previously we have:
+
+  \[ \tilde{x}_{j} \leq 2x_{i} \]
+
+or
+
+  \[ \tilde{x}_{j} = 1 \]
+
+and, by Q2:
+  
+  \[ \tilde{y}_{ij} \leq 2y^*_{ij} \]
+
+Applying transformations to \ref{r2} we have:
+
+  \[ -y_{ij} + x_{j} \geq 0 \]
+
+  \[ x_{j} \geq y_{ij} \]
+
+That means that the formula implies that for a feasible solution,
+for all ij the holds true. 
+Specifically, for the optimal solution:
+
+  \[ x^*_{j} \geq y^*_{ij} \]
+
+and:
+
+  \[ x*_{j} \geq 2y^*_{ij} \]
+  
+if we join them:
+
+  \[ \tilde{y}_{ij} \leq 2y^*_{ij} \leq 2x^*_{j} \leq \tilde{x}_{j} \]
+
+And, by transitivity:
+
+  \[ \tilde{y}_{ij} \leq \tilde{x}_{j} \]
+
+\textbf{Proving that the approximation 2-approximates the cost of
+the optimal solution}
+\\ \\
+We have to prove
+
+ \[ c_{ij} * \tilde{y}_{ij} \leq c_{ij} * 2y^*_{ij} \]
+
+This is easy. We can see that
+
+  \[ \tilde{y}_{ij} \leq 2y^*_{ij} \]
+
+Is true. Then, for each ij we can say the inequation 
+holds true.
+
 \textbf{La respuesta a Q3 acaba aquí}
+
+\paragraph{}

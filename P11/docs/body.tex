@@ -1,6 +1,5 @@
 \section*{11. Sales de Joc}
 
-
 La societat d'Amics dels Videojocs (SAV) té una col·lecció de $m$  locals a la ciutat de Barcelona i un total de $n$  socis. Volen determinar en quins locals els hi convé obrir una sala de joc juntament amb una assignació de socis a les sales de joc.
 
 La SAV per una part ha fet una estimació del cost d'adequar un local com a sala de joc i així, per cada local $i$ té una estimació del cost $l_i$. Per una altre part, la SAV vol tenir en compte el cost que té per als socis desplaçar-se fins el local assignat. Així disposa dels valors $c(i,j)$ que indiquen la distancia que habitualment el soci $i$ ha de recorrer per arribar al local $j$.
@@ -10,36 +9,7 @@ L'objectiu de la SAV és trobar una solució en la que es minimitzi la suma dels
 \paragraph{Q1}
 Doneu una formalitzacó com problema de programació entera d'aquest problema. Feu servir una variable $x_j$ per la selecció del local $j$ i una variable $y_{ij}$ per la possible assignació del soci $i$ al local $j$.
 
-\textbf{La respuesta a Q1 empieza aquí}
-
-Para simplificar la notación, definimos $M = \{1,2,\dots,m\}$ (para referirnos a los locales) y $N = \{1,2,\dots,n\}$ (para referirnos a los socios).
-
-Objetivo: minimizar
-
-\begin{equation}
- \sum_{\forall j \in M} l_jx_j + \sum_{\forall i \in N} \sum_{\forall j \in M} c(i,j)y_{ij}
-\end{equation}
-
-Cumpliendo las siguientes restricciones:
-
-\begin{equation}
-\label{r1}
- \forall i \in N \sum_{\forall j \in M} y_{ij} \geq 1
-\end{equation}
-
-\begin{equation}
-\label{r2}
- \forall i \in N, j \in M -y_{ij} + x_j \geq 0
-\end{equation}
-
-\begin{equation}
-\label{r3}
- \forall i \in N, j \in M, x_j \in \{0,1\} \wedge y_{ij} \in \{0,1\} 
-\end{equation}
-
-La restricción \ref{r1} indica que todo socio debe estar asignado a algún local. La restricción \ref{r2} indica que si un socio está asignado a un local, entonces en ese local hay que abrir una sala de juegos. La restricción \ref{r3} es para asegurar que la solución es entera
-
-\textbf{La respuesta a Q1 termina aquí}
+\input{docs/q1}
 
 Considereu el problema de programació lineal obtingut desprès de relaxar les condicions d'integritat. Sigui $x^*$, $y^*$ una solució òptima del programa relaxat.
 
@@ -56,27 +26,12 @@ Considereu el següent procès:
 \paragraph{Q2}
 Demostreu que, per tot $i$ i tot $j$, $\tilde{y}_{ij} \leq 2y^*_{ij}$.
 
-\textbf{La respuesta a Q2 empieza aquí}
-En los casos en los que $j \notin S_i$, $\tilde{y}_{ij} = 0$, y eso siempre es menor o igual.
-Para el resto de casos, podemos sustiuir $\tilde{y}_{ij}$ por el valor indicado y la demostración se transforma de la siguiente manera:
-\begin{equation}
- \frac{y^*_{ij}}{\Sigma_{j \in S_i} y^*_{ij}} \leq 2y^*_{ij}
-\end{equation}
-
-\begin{equation}
- \frac{y^*_{ij}}{2y^*_{ij}} \leq \Sigma_{j \in S_i} y^*_{ij}
-\end{equation}
-
-\begin{equation}
- 0.5 \leq \Sigma_{j \in S_i} y^*_{ij}
-\end{equation}
-
-
-
-\textbf{La respuesta a Q2 termina aquí}
+\input{docs/q2}
 
 \paragraph{Q3}
 Demostreu que $\tilde{x}$, $\tilde{y}$ és una solució factible del problema de programació lineal i que $\Sigma_{i,j}c(i,j)\tilde{y}_{ij} \leq 2\Sigma_{ij}c(i,j)y^*_{ij}$.
+
+\input{docs/q3}
 
 Ara, donats $\tilde{x}$, $\tilde{y}$, considereu el següent procès, mentre quedin socis sense assignar a una sala: 
 \begin{enumerate}[label=(\alph*)] {
